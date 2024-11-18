@@ -30,8 +30,8 @@ namespace LeaveManagementSystem.Web.Data
                 new IdentityRole 
                 {
                     Id = "57244434-5457-4c86-a6ba-079b397da049",
-                    Name = "Adminstrator",
-                    NormalizedName = "ADMINSTRATOR",
+                    Name = "Administrator",
+                    NormalizedName = "ADMINISTRATOR",
                 }
                 );
 
@@ -61,5 +61,8 @@ namespace LeaveManagementSystem.Web.Data
         }
 
         public DbSet <LeaveType> LeaveTypes { get; set; }
+        public DbSet <LeaveAllocation> LeaveAllocations { get; set; }
+        public DbSet <Period> Periods { get; set; }
+
     }
 }
