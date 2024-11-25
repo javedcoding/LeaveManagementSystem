@@ -1,4 +1,5 @@
-﻿using LeaveManagementSystem.Web.Models.LeaveTypes;
+﻿using LeaveManagementSystem.Web.Data;
+using LeaveManagementSystem.Web.Models.LeaveTypes;
 using LeaveManagementSystem.Web.Models.Periods;
 
 namespace LeaveManagementSystem.Web.Models.LeaveAllocations
