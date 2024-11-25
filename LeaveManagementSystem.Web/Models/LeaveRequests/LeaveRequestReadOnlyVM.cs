@@ -5,7 +5,7 @@ namespace LeaveManagementSystem.Web.Models.LeaveRequests
 {
     public class LeaveRequestReadOnlyVM
     {
-        public int Id {  get; set; }
+        public int Id { get; set; }
 
         [DisplayName("Start Date")]
         public DateOnly StartDate { get; set; }
@@ -14,9 +14,9 @@ namespace LeaveManagementSystem.Web.Models.LeaveRequests
         public DateOnly EndDate { get; set; }
 
         [DisplayName("Total Days")]
-        public int NumberOfDays {  get; set; }
-        
-        [DisplayName("Leave Tpes")]
+        public int NumberOfDays { get; set; }
+
+        [DisplayName("Leave Type")]
         public string LeaveType { get; set; } = string.Empty;
 
         [DisplayName("Status")]

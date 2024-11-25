@@ -2,17 +2,21 @@
 {
     public class LeaveRequest :BaseEntity
     {
-        [StringLength(50)]
-        public DateOnly StartDate {  get; set; }
-        public DateOnly EndDate {  get; set; }
+        public DateOnly StartDate { get; set; }
+        public DateOnly EndDate { get; set; }
+
         public LeaveType? LeaveType { get; set; }
         public int LeaveTypeId { get; set; }
+
         public LeaveRequestStatus? LeaveRequestStatus { get; set; }
         public int LeaveRequestStatusId { get; set; }
+
         public ApplicationUser? Employee { get; set; }
-        public string EmployeeId { get; set; }
+        public string EmployeeId { get; set; } = default!;
+
         public ApplicationUser? Reviewer { get; set; }
         public string? ReviewerId { get; set; }
+
         public string? RequestComments { get; set; }
     }
 }

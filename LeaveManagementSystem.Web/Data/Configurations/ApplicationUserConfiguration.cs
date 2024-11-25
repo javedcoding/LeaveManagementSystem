@@ -15,7 +15,7 @@ namespace LeaveManagementSystem.Web.Data.Configurations
                 Email = "admin@localdbhost.com",
                 NormalizedEmail = "ADMIN@LOCALHOST.COM",
                 NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                UserName = "admin",
+                UserName = "admin@localhost.com",
                 PasswordHash = hasher.HashPassword(null, "Kuttar47**"),
                 EmailConfirmed = true,
                 FirstName = "Deafult",

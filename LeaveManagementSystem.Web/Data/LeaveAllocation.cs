@@ -11,8 +11,8 @@ namespace LeaveManagementSystem.Web.Data
         public string EmployeeId { get; set; }
 
         public Period? Period { get; set; }
-
         public int PeriodId { get; set; }
-        public int Days {  get; set; }
+
+        public int Days { get; set; }
     }
 }

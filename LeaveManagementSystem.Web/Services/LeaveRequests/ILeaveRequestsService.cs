@@ -10,6 +10,6 @@ namespace LeaveManagementSystem.Web.Services.LeaveRequests
         Task CancelLeaveRequest(int leaveRequestId);
         Task ReviewLeaveRequest(int leaveRequestId, bool approved);
         Task<bool> RequestDatesExceedAllocation(LeaveRequestCreateVM model);
-        Task<ReviewRequestVM> GetLeaveRequestForReview(int id);
+        Task<ReviewLeaveRequestVM> GetLeaveRequestForReview(int id);
     }
 }

@@ -10,7 +10,7 @@ namespace LeaveManagementSystem.Web.Services.LeaveTypes
         Task<bool> DaysExceedMaximum(int leaveTypeId, int days);
         Task Edit(LeaveTypeEditVM model);
         Task<T?> Get<T>(int id) where T : class;
-        Task<List<LeaveTypeReadOnlyVM>> GetAllLeaveTypesAsync();
+        Task<List<LeaveTypeReadOnlyVM>> GetAll();
         bool LeaveTypeExists(int id);
         Task Remove(int id);
     }

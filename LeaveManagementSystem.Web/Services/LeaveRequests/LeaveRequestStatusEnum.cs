@@ -5,6 +5,6 @@
         Pending = 1,
         Approved = 2,
         Declined = 3,
-        Cancled = 4
+        Canceled = 4
     }
 }

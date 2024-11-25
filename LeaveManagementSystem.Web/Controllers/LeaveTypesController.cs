@@ -1,35 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using LeaveManagementSystem.Web.Data;
-using LeaveManagementSystem.Web.Models.LeaveTypes;
-using AutoMapper;
+﻿using LeaveManagementSystem.Web.Models.LeaveTypes;
 using LeaveManagementSystem.Web.Services.LeaveTypes;
+using Microsoft.EntityFrameworkCore;
 
 namespace LeaveManagementSystem.Web.Controllers
 {
     [Authorize(Roles = Roles.Administrator)]
     public class LeaveTypesController(ILeaveTypesService _leaveTypesService) : Controller
     {
-        private const string NameExistsValidationMessage = "This leave type already exits";
+        private const string NameExistsValidationMessage = "This leave type already exists in the database";
 
         // GET: LeaveTypes
         public async Task<IActionResult> Index()
         {
-
-            ////converting datamodel to view model
-            //var viewData = data.Select(q => new IndexVM
-            //{
-            //    Id = q.Id,
-            //    Name = q.Name,
-            //    NumberOfDays = q.NumberOfDays,
-            //});
-            //Instead of Manual Mapping we should use AutoMapper to work easily just follow the naming convention
-            var viewData = await _leaveTypesService.GetAllLeaveTypesAsync();
+            var viewData = await _leaveTypesService.GetAll();
             return View(viewData);
         }
 
@@ -40,14 +23,11 @@ namespace LeaveManagementSystem.Web.Controllers
             {
                 return NotFound();
             }
-
             var leaveType = await _leaveTypesService.Get<LeaveTypeReadOnlyVM>(id.Value);
-            
             if (leaveType == null)
             {
                 return NotFound();
             }
-
             return View(leaveType);
         }
 
@@ -64,15 +44,12 @@ namespace LeaveManagementSystem.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(LeaveTypeCreateVM leaveTypeCreate)
         {
-            //if (leaveTypeCreate.Name.Contains("vacation")) 
-            //{
-            //    ModelState.AddModelError(nameof(leaveTypeCreate.Name), "Name should not contain vacation");
-            //}
+            // Adding custom validation and model state error
             if (await _leaveTypesService.CheckIfLeaveTypeNameExists(leaveTypeCreate.Name))
             {
-                ModelState.AddModelError(nameof(leaveTypeCreate.Name), NameExistsValidationMessage);
+                ModelState.AddModelError(nameof(leaveTypeCreate.Name), "This leave type already exists in the database");
             }
-            
+
             if (ModelState.IsValid)
             {
                 await _leaveTypesService.Create(leaveTypeCreate);
@@ -94,7 +71,6 @@ namespace LeaveManagementSystem.Web.Controllers
             {
                 return NotFound();
             }
-
             return View(leaveType);
         }
 
@@ -105,14 +81,15 @@ namespace LeaveManagementSystem.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, LeaveTypeEditVM leaveTypeEdit)
         {
-            if (await _leaveTypesService.CheckIfLeaveTypeNameExistsForEdit(leaveTypeEdit))
-            {
-                ModelState.AddModelError(nameof(leaveTypeEdit.Name), NameExistsValidationMessage);
-            }
-
             if (id != leaveTypeEdit.Id)
             {
                 return NotFound();
+            }
+
+            // Adding custom validation and model state error
+            if (await _leaveTypesService.CheckIfLeaveTypeNameExistsForEdit(leaveTypeEdit))
+            {
+                ModelState.AddModelError(nameof(leaveTypeEdit.Name), NameExistsValidationMessage);
             }
 
             if (ModelState.IsValid)
@@ -137,7 +114,6 @@ namespace LeaveManagementSystem.Web.Controllers
             return View(leaveTypeEdit);
         }
 
-        
 
         // GET: LeaveTypes/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -152,7 +128,6 @@ namespace LeaveManagementSystem.Web.Controllers
             {
                 return NotFound();
             }
-
             return View(leaveType);
         }
 

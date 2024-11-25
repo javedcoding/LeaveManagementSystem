@@ -3,11 +3,11 @@ using System.ComponentModel;
 
 namespace LeaveManagementSystem.Web.Models.LeaveRequests
 {
-    public class ReviewRequestVM : LeaveRequestReadOnlyVM
+    public class ReviewLeaveRequestVM : LeaveRequestReadOnlyVM
     {
-        public EmployeeListVM Employee {  get; set; } = new EmployeeListVM();
+        public EmployeeListVM Employee { get; set; } = new EmployeeListVM();
 
         [DisplayName("Additional Information")]
-        public string RequestComments {  get; set; }
+        public string RequestComments { get; set; }
     }
 }
