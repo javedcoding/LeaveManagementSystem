@@ -1,6 +1,6 @@
 ﻿
 using AutoMapper;
-using LeaveManagementSystem.Web.Data;
+using LeaveManagementSystem.Data;
 using LeaveManagementSystem.Web.Models.LeaveAllocations;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;

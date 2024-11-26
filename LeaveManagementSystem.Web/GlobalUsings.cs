@@ -1,5 +1,5 @@
-﻿global using LeaveManagementSystem.Web.Data;
-global using LeaveManagementSystem.Web.Common;
+﻿global using LeaveManagementSystem.Data;
+global using LeaveManagementSystem.Common;
 global using System;
 global using System.Collections.Generic;
 global using System.ComponentModel.DataAnnotations;

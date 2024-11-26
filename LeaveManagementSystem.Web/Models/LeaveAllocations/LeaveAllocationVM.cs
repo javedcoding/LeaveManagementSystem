@@ -1,4 +1,4 @@
-﻿using LeaveManagementSystem.Web.Data;
+﻿using LeaveManagementSystem.Data;
 using LeaveManagementSystem.Web.Models.LeaveTypes;
 using LeaveManagementSystem.Web.Models.Periods;
 

@@ -1,4 +1,4 @@
-using LeaveManagementSystem.Web.Data;
+using LeaveManagementSystem.Data;
 using LeaveManagementSystem.Web.Services.Email;
 using LeaveManagementSystem.Web.Services.LeaveAllocations;
 using LeaveManagementSystem.Web.Services.LeaveRequests;

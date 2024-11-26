@@ -21,4 +21,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LeaveManagementSystem.Common\LeaveManagementSystem.Common.csproj" />
+    <ProjectReference Include="..\LeaveManagementSystem.Data\LeaveManagementSystem.Data.csproj" />
+  </ItemGroup>
+
 </Project>
