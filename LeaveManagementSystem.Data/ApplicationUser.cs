@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.General;
-
-namespace LeaveManagementSystem.Data
+﻿namespace LeaveManagementSystem.Data
 {
     public class ApplicationUser : IdentityUser
     {

@@ -1,28 +1,19 @@
-using LeaveManagementSystem.Data;
-using LeaveManagementSystem.Web.Services.Email;
-using LeaveManagementSystem.Web.Services.LeaveAllocations;
-using LeaveManagementSystem.Web.Services.LeaveRequests;
-using LeaveManagementSystem.Web.Services.LeaveTypes;
-using LeaveManagementSystem.Web.Services.Periods;
-using LeaveManagementSystem.Web.Services.Users;
-using Microsoft.AspNetCore.Identity;
+using LeaveManagementSystem.Application;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+ApplicationServicesRegistration.AddApplicationServices(builder.Services);
+DataServicesRegistration.AddDataServices(builder.Services, builder.Configuration);
 
-builder.Services.AddScoped<ILeaveTypesService, LeaveTypesService>();
-builder.Services.AddScoped<ILeaveAllocationsService, LeaveAllocationsService>();
-builder.Services.AddTransient<ILeaveRequestsService, LeaveRequestsService>();
-builder.Services.AddScoped<IPeriodsService, PeriodsService>();
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Host.UseSerilog((ctx, config) => 
+    config.WriteTo.Console()
+    .ReadFrom.Configuration(ctx.Configuration)
+);
+
 
 builder.Services.AddAuthorization(options =>
 {
@@ -33,9 +24,12 @@ builder.Services.AddAuthorization(options =>
 });
 
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => {
+    options.SignIn.RequireConfirmedAccount = true;
+    options.Password.RequiredLength = 12;
+    options.Password.RequireDigit = true;
+} )
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();

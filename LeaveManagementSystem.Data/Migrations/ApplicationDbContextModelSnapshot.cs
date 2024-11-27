@@ -17,7 +17,7 @@ namespace LeaveManagementSystem.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.11")
+                .HasAnnotation("ProductVersion", "8.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -102,7 +102,7 @@ namespace LeaveManagementSystem.Data.Migrations
                         {
                             Id = "fe6e6408-cc97-419b-9060-4d483149b4a2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d28aa478-ab2f-48d3-a441-b84036256188",
+                            ConcurrencyStamp = "b4863377-d25a-4a6a-93f5-05f9a5556a68",
                             DateOfBirth = new DateOnly(1950, 12, 1),
                             Email = "admin@localdbhost.com",
                             EmailConfirmed = true,
@@ -111,9 +111,9 @@ namespace LeaveManagementSystem.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAECCGoilFPtLMZ80VdpQnp7S1nqjk5DSKEmF1777MopFzW7wlIlDXavPLZtUzJ2qUjQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEO088u8AZJVp+FUxzLwNBhdesuwAoIohRJuSuspukA7/bfvRCwW0vv0Ge8Pu5kqa7Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c34aab0d-7bc2-414f-9ffd-fc8516b49771",
+                            SecurityStamp = "3f345eea-3e32-489d-95af-da911b847c84",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         });
@@ -179,7 +179,6 @@ namespace LeaveManagementSystem.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateOnly>("StartDate")
-                        .HasMaxLength(50)
                         .HasColumnType("date");
 
                     b.HasKey("Id");
@@ -231,7 +230,7 @@ namespace LeaveManagementSystem.Data.Migrations
                         new
                         {
                             Id = 4,
-                            Name = "Cancled"
+                            Name = "Canceled"
                         });
                 });
 
@@ -245,7 +244,8 @@ namespace LeaveManagementSystem.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(150)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<int>("NumberOfDays")
                         .HasColumnType("int");

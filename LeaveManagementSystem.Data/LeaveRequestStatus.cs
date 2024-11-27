@@ -1,8 +1,6 @@
-﻿using LeaveManagementSystem.Data.Configurations;
-using Microsoft.EntityFrameworkCore;
-namespace LeaveManagementSystem.Data
+﻿namespace LeaveManagementSystem.Data
 {
-    public class LeaveRequestStatus : BaseEntity 
+    public class LeaveRequestStatus : BaseEntity
     {
         [StringLength(50)]
         public string Name { get; set; }

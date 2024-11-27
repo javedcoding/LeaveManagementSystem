@@ -2,24 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading;
-using System.Threading.Tasks;
-using LeaveManagementSystem.Web.Services.LeaveAllocations;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace LeaveManagementSystem.Web.Areas.Identity.Pages.Account
 {
@@ -43,7 +26,7 @@ namespace LeaveManagementSystem.Web.Areas.Identity.Pages.Account
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
-            this._leaveAllocationsService = leaveAllocationsService; 
+            this._leaveAllocationsService = leaveAllocationsService;
             _userManager = userManager;
             _userStore = userStore;
             _emailStore = GetEmailStore();
@@ -160,11 +143,11 @@ namespace LeaveManagementSystem.Web.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-                    if (Input.RoleName == Roles.Supervisor) 
+                    if (Input.RoleName == Roles.Supervisor)
                     {
                         await _userManager.AddToRolesAsync(user, [Roles.Employee, Roles.Supervisor]);
                     }
-                    else 
+                    else
                     {
                         await _userManager.AddToRoleAsync(user, Roles.Employee);
                     }
