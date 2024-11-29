@@ -1,0 +1,268 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - LeaveManagementSystem.Web</title>
+    <!-- Favicon icon-->
+    <link rel="shortcut icon" type="image/png" href="~/images/logos/favicon.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+          rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/3c8c02c4a0.js" crossorigin="anonymous"></script>
+    <!-- Core Css -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/theme.css" />
+    @* <link rel="stylesheet" href="~/lib/jqueryui/themes/base/jquery-ui.min.css" />  *@
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/LeaveManagementSystem.Web.styles.css" asp-append-version="true" />
+
+</head>
+
+<body class=" bg-surface">
+    <main>
+        <!--start the project-->
+        <div id="main-wrapper" class=" flex p-5 xl:pr-0 min-h-screen">
+            <aside id="application-sidebar-brand"
+                   class="hs-overlay hs-overlay-open:translate-x-0 -translate-x-full  transform hidden xl:block xl:translate-x-0 xl:end-auto xl:bottom-0 fixed xl:top-5 xl:left-auto top-0 left-0 with-vertical h-screen z-[999] shrink-0  w-[270px] shadow-md xl:rounded-md rounded-none bg-white left-sidebar   transition-all duration-300">
+                <!-- ---------------------------------- -->
+                <!-- Start Vertical Layout Sidebar -->
+                <!-- ---------------------------------- -->
+                <div class="p-4">
+
+                    <a href="../" class="text-nowrap">
+                        <img src="~/images/logos/logo-light.svg"
+                             alt="Logo-Dark" />
+                    </a>
+
+
+                </div>
+                <div class="scroll-sidebar" data-simplebar="">
+                    <nav class=" w-full flex flex-col sidebar-nav px-4 mt-5">
+                        <ul id="sidebarnav" class="text-gray-600 text-sm">
+                            <li class="text-xs font-bold pb-[5px]">
+                                <i class="ti ti-dots nav-small-cap-icon text-lg hidden text-center"></i>
+                                <span class="text-xs text-gray-400 font-semibold">Pages</span>
+                            </li>
+
+                            <li class="sidebar-item">
+                                <a class="sidebar-link gap-3 py-2.5 my-1 text-base  flex items-center relative  rounded-md text-gray-500  w-full" asp-controller="Home" asp-action="Index">
+                                    <i class="fa-solid fa-house" style="color: #400000;"></i></i> <span>Home</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link gap-3 py-2.5 my-1 text-base  flex items-center relative  rounded-md text-gray-500  w-full" asp-controller="Home" asp-action="Privacy">
+                                    <i class="fa-solid fa-shield-halved" style="color: #0080ff;"></i> <span>Privacy</span>
+                                </a>
+                            </li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="text-xs font-bold mb-4 mt-6">
+                                    <i class="ti ti-dots nav-small-cap-icon text-lg hidden text-center"></i>
+                                    <span class="text-xs text-gray-400 font-semibold">Management</span>
+                                </li>
+
+                                @if (User.IsInRole(Roles.Administrator))
+                                {
+
+
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link gap-3 py-2.5 my-1 text-base   flex items-center relative  rounded-md text-gray-500  w-full" asp-controller="LeaveTypes" asp-action="Index">
+                                            <i class="fa-solid fa-clipboard-list" style="color: #000000;"></i> <span>Leave Types</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link gap-3 py-2.5 my-1 text-base   flex items-center relative  rounded-md text-gray-500  w-full" asp-controller="Periods" asp-action="Index">
+                                            <i class="fa-solid fa-clock"></i> <span>Periods</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link gap-3 py-2.5 my-1 text-base   flex items-center relative  rounded-md text-gray-500  w-full" asp-controller="LeaveAllocation" asp-action="Index">
+                                            <i class="fa-solid fa-users-viewfinder" style="color: #1627f5;"></i> <span>View Employees</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link gap-3 py-2.5 my-1 text-base   flex items-center relative  rounded-md text-gray-500  w-full" asp-controller="LeaveRequests" asp-action="ListRequests">
+                                            <i class="fa-solid fa-list-check" style="color: #000000;"></i> <span>Manage Requests</span>
+                                        </a>
+                                    </li>
+                                }
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link gap-3 py-2.5 my-1 text-base   flex items-center relative  rounded-md text-gray-500  w-full" asp-controller="LeaveAllocation" asp-action="Details">
+                                        <i class="fa-solid fa-eye" style="color: #131f33;"></i> <span>View Allocations</span>
+                                    </a>
+                                </li>
+                            }
+
+
+                            @if (!User.Identity.IsAuthenticated)
+                            {
+                                <li class="text-xs font-bold mb-4 mt-6">
+                                    <i class="ti ti-dots nav-small-cap-icon text-lg hidden text-center"></i>
+                                    <span class="text-xs text-gray-400 font-semibold">Authentication</span>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link gap-3 py-2.5 my-1 text-base   flex items-center relative  rounded-md text-gray-500  w-full" asp-controller="LeaveAllocation" asp-action="Index">
+                                        <i class="fa-solid fa-right-to-bracket" style="color: #0080ff;"></i> <span>Login</span>
+                                    </a>
+                                </li>
+
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link gap-3 py-2.5 my-1 text-base   flex items-center relative  rounded-md text-gray-500  w-full" asp-area="Identity" asp-page="/Account/Register">
+                                        <i class="fa-solid fa-address-card" style="color: #00ca00;"></i> <span>Register</span>
+                                    </a>
+                                </li>
+                            }
+
+                        </ul>
+                    </nav>
+                </div>
+                <!-- </aside> -->
+            </aside>
+            <div class=" w-full page-wrapper xl:px-6 px-0">
+
+                <!-- Main Content -->
+                <main class="h-full  max-w-full">
+                    <div class="container full-container p-0 flex flex-col gap-6">
+                        <!--  Header Start -->
+                        <header class=" bg-white shadow-md rounded-md w-full text-sm py-4 px-6">
+
+
+                            <!-- ========== HEADER ========== -->
+
+                            <nav class=" w-ful flex items-center justify-between" aria-label="Global">
+                                <ul class="icon-nav flex items-center gap-4">
+                                    <li class="relative xl:hidden">
+                                        <a class="text-xl  icon-hover cursor-pointer text-heading"
+                                           id="headerCollapse" data-hs-overlay="#application-sidebar-brand"
+                                           aria-controls="application-sidebar-brand" aria-label="Toggle navigation" href="javascript:void(0)">
+                                            <i class="ti ti-menu-2 relative z-1"></i>
+                                        </a>
+                                    </li>
+
+                                    <li class="relative">
+
+                                        <div class="hs-dropdown relative inline-flex [--placement:bottom-left] sm:[--trigger:hover]">
+                                            <a class="relative hs-dropdown-toggle inline-flex hover:text-gray-500 text-gray-300" href="#">
+                                                <i class="ti ti-bell-ringing text-xl relative z-[1]"></i>
+                                                <div class="absolute inline-flex items-center justify-center  text-white text-[11px] font-medium  bg-blue-600 w-2 h-2 rounded-full -top-[1px] -right-[6px]">
+                                                </div>
+                                            </a>
+                                            <div class="card hs-dropdown-menu transition-[opacity,margin] rounded-md duration hs-dropdown-open:opacity-100 opacity-0 mt-2 min-w-max  w-[300px] hidden z-[12]"
+                                                 aria-labelledby="hs-dropdown-custom-icon-trigger">
+                                                <div>
+                                                    <h3 class="text-gray-500 font-semibold text-base px-6 py-3">Notification</h3>
+                                                    <ul class="list-none  flex flex-col">
+                                                        <li>
+                                                            <a href="#" class="py-3 px-6 block hover:bg-gray-200">
+                                                                <p class="text-sm text-gray-500 font-medium">Roman Joined the Team!</p>
+                                                                <p class="text-xs text-gray-400 font-medium">Congratulate him</p>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#" class="py-3 px-6 block hover:bg-gray-200">
+                                                                <p class="text-sm text-gray-500 font-medium">New message received</p>
+                                                                <p class="text-xs text-gray-400 font-medium">Salma sent you new message</p>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#" class="py-3 px-6 block hover:bg-gray-200">
+                                                                <p class="text-sm text-gray-500 font-medium">New Payment received</p>
+                                                                <p class="text-xs text-gray-400 font-medium">Check your earnings</p>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#" class="py-3 px-6 block hover:bg-gray-200">
+                                                                <p class="text-sm text-gray-500 font-medium">Jolly completed tasks</p>
+                                                                <p class="text-xs text-gray-400 font-medium">Assign her new tasks</p>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#" class="py-3 px-6 block hover:bg-gray-200">
+                                                                <p class="text-sm text-gray-500 font-medium">Roman Joined the Team!</p>
+                                                                <p class="text-xs text-gray-400 font-medium">Congratulate him</p>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                </ul>
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    <div class="flex items-center gap-4">
+                                        <div class="hs-dropdown relative inline-flex [--placement:bottom-right]">
+                                            <a class="hs-dropdown-toggle cursor-pointer align-middle rounded-full flex items-center gap-2" id="dropdownToggle" aria-expanded="false"
+                                               aria-haspopup="true">
+                                                <img class="object-cover w-9 h-9 rounded-full" src="~/images/profile/user-1.jpg" alt="~/images/svgs/user-505.svg">
+                                                <span>
+                                                    @User.Identity?.Name
+                                                </span>
+                                            </a>
+                                            <div class="card hs-dropdown-menu hidden absolute bg-white shadow-lg rounded-md mt-2" id="dropdownMenu">
+
+                                                <div class="card-body p-0 py-2">
+                                                    <a asp-area="Identity" asp-page="/Account/Manage/Index" title="My Profile" class="flex gap-2 items-center font-medium px-4 py-1.5 hover:bg-gray-200 text-gray-400">
+                                                        <i class="ti ti-user  text-xl "></i>
+                                                        <p class="text-sm ">My Profile</p>
+                                                    </a>
+
+                                                    <div class="px-4 mt-[7px] grid">
+                                                        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                                            <button type="submit" class="btn-outline-primary font-medium text-[15px] w-full hover:bg-blue-600 hover:text-white">Logout</button>
+                                                        </form>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                }
+                            </nav>
+
+                            <!-- ========== END HEADER ========== -->
+                        </header>
+                        <!--  Header End -->
+                        <div class="card">
+                            <div class="card-body">
+                                @RenderBody()
+                            </div>
+                        </div>
+                    </div>
+
+
+                </main>
+                <!-- Main Content End -->
+
+            </div>
+        </div>
+        <!--end of project-->
+    </main>
+
+
+    <script src="~/lib/sweetalert/sweetalert.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/simplebar/dist/simplebar.min.js"></script>
+    <script src="~/lib/iconify-icon/dist/iconify-icon.min.js"></script>
+    <script src="~/lib/preline_obj/dropdown/index.js"></script>
+    <script src="~/lib/preline_obj/overlay/index.js"></script>
+    <script src="~/js/sidebarmenu.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

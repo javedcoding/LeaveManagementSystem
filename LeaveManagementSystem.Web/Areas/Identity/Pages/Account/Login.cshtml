@@ -5,8 +5,56 @@
     ViewData["Title"] = "Log in";
 }
 
-<h1>@ViewData["Title"]</h1>
-<div class="row">
+
+<div class="flex flex-col w-full  overflow-hidden relative min-h-screen radial-gradient items-center justify-center g-0 px-4">
+
+    <div class="justify-center items-center w-full card lg:flex max-w-md ">
+        <div class=" w-full card-body">
+            <a href="../" class="py-4 block"><img src="~/images/logos/logo-light.svg" alt="" class="mx-auto" /></a>
+            <h2 class="text-center">@ViewData["Title"]</h2>
+            <!-- form -->
+            <form id="account" method="post">
+                <!-- username -->
+                <div class="mb-12">
+                    <label asp-for="Input.LoginIdentifier"
+                           class="block text-sm mb-2 text-gray-400">Username or Email</label>
+                    <input type="text" asp-for="Input.LoginIdentifier"
+                           class="py-3 px-4 block w-full border-gray-200 rounded-sm text-sm focus:border-blue-600 focus:ring-0 " aria-describedby="hs-input-helper-text" aria-required="true" placeholder="name@example.com or Doe47">
+                    <span asp-validation-for="Input.LoginIdentifier" class="text-danger"></span>
+                </div>
+                <!-- password -->
+                <div class="mb-12">
+                    <label asp-for="Input.Password"
+                           class="block text-sm  mb-2 text-gray-400">Password</label>
+                    <input type="password" asp-for="Input.Password"
+                           class="py-3 px-4 block w-full border-gray-200 rounded-sm text-sm focus:border-blue-600 focus:ring-0 " aria-describedby="hs-input-helper-text">
+                </div>
+                <!-- checkbox -->
+                <div class="flex justify-between">
+                    <div class="flex">
+                        <input type="checkbox" class="shrink-0 mt-0.5 border-gray-200 rounded-[4px] text-blue-600 focus:ring-blue-500 " asp-for="Input.RememberMe" checked>
+                        <label for="hs-default-checkbox" class="text-sm text-gray-500 ms-3">Remeber Me</label>
+                    </div>
+                    <a id="forgot-password" asp-page="./ForgotPassword" class="text-sm font-semibold text-blue-600 hover:text-blue-700">Forgot Password ?</a>
+                </div>
+                <!-- button -->
+                <div class="grid my-6">
+                    <button id="login-submit" type="submit" class="btn py-[10px] text-base text-white font-medium hover:bg-blue-700">Log in</button>
+                </div>
+
+                <div class="flex justify-center gap-2 items-center">
+                    <p class="text-base font-semibold text-gray-400">New Employee?</p>
+                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-sm font-semibold text-blue-600 hover:text-blue-700">Create an account</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+@* <div class="row">
     <div class="col-md-4">
         <section>
             <form id="account" method="post">
@@ -55,8 +103,10 @@
                 {
                     <div>
                         <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
+                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">
+                                article
+                                about setting up this ASP.NET application to support logging in via external services
+                            </a>.
                         </p>
                     </div>
                 }
@@ -76,7 +126,7 @@
             }
         </section>
     </div>
-</div>
+</div> *@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
